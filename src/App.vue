@@ -1,90 +1,30 @@
 <template>
-  <div id="app">
-    <h1>{{ msg }}</h1>
-    <p>
-      <signup :username="username" :password="password" :name="name"
-              @signupSuccessful="handleSignupSuccessful($event)" @signupUnSuccessful="handleSignupUnSuccessful($event)"></signup>
-    </p>
-
-    <div class="form-style-6" v-if="signInDone">
-      username : {{username}}
-    <hr>
-      apitoken : {{name}}
-    <hr>
-
-  </div>
-
-
-    <div class="form-style-6" v-if="signInFailed">
-
-      <hr>
-    <span style="color:red">{{signInFailedMessage}}</span>
-      <hr>
-
-    </div>
-
-
-
-
-    <p>
-       <b>OR</b>
-    </p>
-
-    <p>
-
-      <login :username="username" :password="password" apitoken="apitoken"
-             @loginSuccessful="handleLoginSuccessful($event)"/>
-    </p>
-
-    <div class="form-style-6" v-if="loginDone">
-      apitoken : {{apitoken}}
-      <hr>
-    </div>
-  </div>
+  <router-view></router-view>
 </template>
 
 <script>
-  import Signup from './components/Signup.vue';
-  import Login from './components/Login.vue';
-export default {
-  name: 'app',
-  data () {
-    return {
-      msg: 'Welcome to Bookshelf',
-      username: '',
-      name : '',
-      password : '',
-      apitoken : '',
-      signInDone : false,
-      signInFailed : false,
-      signInFailedMessage : '',
-      loginDone : false
-    }
-  },
-  methods : {
-    handleSignupSuccessful($event){
-      this.username = $event.username;
-      this.name = $event.name;
-      this.signInDone = true;
-    },
-    handleSignupUnSuccessful($event){
-      this.signInFailed = true;
-      this.signInFailedMessage = 'fields not all filled, or username already present';
-    },
-    handleLoginSuccessful($event){
-      this.loginDone = true;
-      this.apitoken = $event;
-    }
-  },
-  components : {
-    signup : Signup,
-    login : Login
+  export default {
   }
-}
 </script>
 
 <style>
-#app {
+
+  .h4 {
+    font-size: 20px;
+  }
+
+  button {
+    background-color: #e7e7e7; /* Gray */
+    border: none;
+    color: red;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+  }
+
+p,div {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

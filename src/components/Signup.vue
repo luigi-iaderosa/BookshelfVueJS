@@ -11,9 +11,16 @@
 </template>
 
 <script>
+    import {mapMutations} from 'vuex'
     export default {
-      props : ['username','name','password','apitoken'],
-      methods : {
+      data  : function(){
+        return {
+          username : '',
+          name:'',
+          password:''
+        }
+      },
+      methods: {
         submitForm($event){
           $event.preventDefault();
 
@@ -24,8 +31,14 @@
               console.log(error);
               this.$emit('signupUnSuccessful',error.json());
           }).then(response =>{
+
             this.$emit('signupSuccessful',response);
-          }).then();
+          }).then(data=>{
+              this.$store.commit('setUsername',this.username);
+              this.$store.commit('setName',this.name);
+              this.$store.commit('setPassword',this.password);
+
+          });
         }
       }
     }
