@@ -17,15 +17,25 @@
             availableBooks : []
           }
         },
+        methods : {
+          add(bookId) {
+
+            var body = {'id_book':bookId,'id_user':this.$store.state.user_id};
+            var headers = {headers: {'apitoken': this.$store.state.apitoken}};
+            this.$http.post('http://localhost:8000/api/bookshelf/book', body,headers);
+            this.$router.push('/bookshelf/'+this.$store.state.bookshelf_id);
+            console.log(body);
+            console.log(headers);
+          }
+        },
         created() {
           this.$http.get('http://localhost:8000/api/books').then(response => {return response.json()})
             .then(data => {
               for (let bookIndex in data.books){
-                console.log(data.books[bookIndex]);
+                // console.log(data.books[bookIndex]);
                 this.availableBooks.push(data.books[bookIndex]);
               }
             });
-
         }
     }
 </script>
