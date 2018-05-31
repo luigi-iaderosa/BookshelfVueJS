@@ -1,16 +1,23 @@
 <template>
 <div>
   <div class="form-style-6">
+    <!-- select2 integration -->
+    <select2 :options="availableBooks">
+    </select2>
+
+<!--
   <ul>
     <li v-for="book in availableBooks" class="form-style-6">
         {{book.title}} &nbsp {{book.author.first_name}}&nbsp {{book.author.middle_names}} &nbsp {{book.author.last_name}}&nbsp <button @click="add(book.id)"> Add! </button>
     </li>
   </ul>
+  -->
   </div>
 </div>
 </template>
 
 <script>
+  import AvailableBooksSelect2 from './AvailableBooksSelect2.vue';
     export default {
         data : function () {
           return {
@@ -26,7 +33,8 @@
             this.$router.push('/bookshelf/'+this.$store.state.bookshelf_id);
             console.log(body);
             console.log(headers);
-          }
+          },
+
         },
         created() {
           this.$http.get('http://localhost:8000/api/books').then(response => {return response.json()})
@@ -36,7 +44,10 @@
                 this.availableBooks.push(data.books[bookIndex]);
               }
             });
-        }
+        },
+      components : {
+          select2: AvailableBooksSelect2
+      }
     }
 </script>
 
