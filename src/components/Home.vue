@@ -1,19 +1,10 @@
 <template>
   <div>
-    <p class="h4">{{ $store.state.msg }}</p>
+    <p class="h4"> {{ $store.state.msg }}</p>
     <p>
       <signup
               @signupSuccessful="handleSignupSuccessful($event)" @signupUnSuccessful="handleSignupUnSuccessful($event)"></signup>
     </p>
-
-    <div class="form-style-6" v-if="signInDone">
-      username : {{$store.state.username}}
-      <hr>
-      apitoken : {{$store.state.name}}
-      <hr>
-
-    </div>
-
 
     <div class="form-style-6" v-if="signInFailed">
 
@@ -43,6 +34,9 @@
 <script>
   import Signup from './Signup.vue';
   import Login from './Login.vue';
+  import {eventBus} from "../main";
+
+
   export default {
 
 
@@ -52,8 +46,11 @@
         loginDone : false,
         signInFailed : false
       }
-
-
+    },
+    computed :  {
+      state : function(){
+        return this.$store.state.apitoken;
+      }
     },
     methods : {
       goToBookshelf (){
@@ -74,10 +71,22 @@
         this.loginDone = true;
         console.log(this.$store.state);
 
+      }
+    },
 
+    created (){
+      eventBus.$on('logoutButtonPushed',function(){
+       location.reload();
+      });
+    },
+    beforeCreate(){
 
-
-
+      if (this.$store.state.apitoken != ''){ //if apitoken is defined, head to bookshelf
+        this.$router.push('/bookshelf/'+this.$store.state.bookshelf_id);
+      }
+      else if (this.$store.state.apitoken == ''){ //if apitoken is defined, head to bookshelf
+        //this.$router.push('/home');
+        console.log(' empty apitoken');
 
       }
     },

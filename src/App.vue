@@ -1,9 +1,18 @@
 <template>
-  <router-view></router-view>
+  <div>
+    <router-view></router-view>
+    <user-ops></user-ops>
+  </div>
+
 </template>
 
 <script>
+  import UserOps from './components/UserOps.vue';
   export default {
+    components :  {
+     userOps : UserOps
+    }
+
   }
 </script>
 

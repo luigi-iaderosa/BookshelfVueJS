@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div><b>Home</b></div>
     <div> {{$store.apitoken}}</div>
     <div class="h4">Bookshelf name: <b>{{shelfName}}</b></div>
   <div class="form-style-6">

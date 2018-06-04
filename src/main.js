@@ -10,6 +10,8 @@ Vue.use(VueResource);
 Vue.use(Vuex);
 Vue.use(VueRouter);
 
+export const eventBus = new Vue();
+
 const vuexLocalStorage = new VuexPersist({
   key: 'vuex' ,// The key to store the state on in the storage provider.
   storage: window.localStorage, // or window.sessionStorage or localForage
@@ -62,6 +64,15 @@ const store = new Vuex.Store({
     },
     setBookshelfId(state,value){
       state.bookshelf_id = value;
+    },
+    reset(state){
+      state.username= '';
+      state.stateuser_id= '';
+      state.name = '';
+      state.password = '';
+      state.apitoken = '';
+      state.bookshelf_id = ''
+      state.loginDone = false;
     }
   },
   plugins: [vuexLocalStorage.plugin]
