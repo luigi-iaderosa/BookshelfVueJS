@@ -31,8 +31,6 @@
             var headers = {headers: {'apitoken': this.$store.state.apitoken}};
             this.$http.post('http://localhost:8000/api/bookshelf/book', body,headers);
             this.$router.push('/bookshelf/'+this.$store.state.bookshelf_id);
-            console.log(body);
-            console.log(headers);
           },
 
         },

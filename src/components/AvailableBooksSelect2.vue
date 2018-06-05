@@ -8,7 +8,9 @@
 </template>
 
 <script>
-    export default {
+  import {eventBus} from "../main";
+
+  export default {
       props : ['options'],
       data : function() {
         return {
@@ -17,12 +19,15 @@
       },
       methods : {
       addByButton($event){
-        console.log(this.selected);
+
 
         var body = {'id_book':this.selected,'id_user':this.$store.state.user_id};
         var headers = {headers: {'apitoken': this.$store.state.apitoken}};
+
         this.$http.post('http://localhost:8000/api/bookshelf/book', body,headers);
-        this.$router.push('/bookshelf/'+this.$store.state.bookshelf_id);
+        setTimeout(function(){
+          eventBus.$emit('bookAdded')
+        },1000);
 
         }
       }

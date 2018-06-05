@@ -14,22 +14,19 @@
 
 <script>
   import FooterLinks from './FooterLinks.vue';
+  import {eventBus} from '../main'
     export default {
       data: function() {
         return {
           shelfName : '',
-          books : []
+          books : [],
+
         }
       },
       methods: {
         deleteBook: function(book_id){
 
-
-          alert('will be deleted a book '+book_id);
           //1. call for delete route
-
-
-          console.log(this.$store.state.user_id);
 
           this.$http.delete('http://localhost:8000/api/bookshelf/book/'+book_id,
             { headers: {
@@ -51,7 +48,6 @@
         footerLinks : FooterLinks
       },
       created(){
-        console.log(this.$store.state);
         this.$http.get('http://localhost:8000/api/bookshelf/'+this.$route.params.id,{
           headers:{
             'apitoken': this.$store.state.apitoken
@@ -67,7 +63,9 @@
           }
         );
 
-
+        eventBus.$on('bookAdded',function(){
+          location.reload();
+        });
 
 
       }
